@@ -8,7 +8,7 @@ export async function tiktokSearch(bot, chatId, query) {
     const { data } = await axios.get(apiUrl);
 
     if (!data?.success || !data?.result?.length) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Video TikTok tidak ditemukan."
       );
@@ -45,7 +45,7 @@ ${random.create_at}
       musicUrl: random.musicUrl
     });
 
-    await bot.sendPhoto(chatId, random.cover, {
+    await bot.telegram.sendPhoto(chatId, random.cover, {
       caption,
       parse_mode: "HTML",
       reply_markup: {
@@ -72,7 +72,7 @@ ${random.create_at}
   } catch (error) {
     console.log("TT SEARCH ERROR:", error.message);
 
-    await bot.sendMessage(
+    await bot.telegram.sendMessage(
       chatId,
       "❌ Terjadi error saat mencari video TikTok."
     );

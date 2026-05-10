@@ -153,7 +153,7 @@ export async function ytPlayCommand(
     const meta = await searchFirstVideo(query);
 
     if (!meta?.videoId) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Video tidak ditemukan."
       );
@@ -196,7 +196,7 @@ ${audioData?.duration || "Unknown"}
 ${watchUrl}
 </blockquote>`;
 
-    await bot.sendPhoto(
+    await bot.telegram.sendPhoto(
       chatId,
       meta.thumbnail,
       {
@@ -224,7 +224,7 @@ ${watchUrl}
       error.message
     );
 
-    await bot.sendMessage(
+    await bot.telegram.sendMessage(
       chatId,
       "❌ Gagal mengambil video."
     );

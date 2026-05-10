@@ -1,4 +1,4 @@
-import TelegramBot from "node-telegram-bot-api";
+import { Telegraf } from "telegraf";
 import chalk from "chalk";
 import { sendMenu } from "./commands/menu.js";
 import { sendInfo } from "./commands/info.js";
@@ -33,11 +33,14 @@ console.log(`${chalk.white("[")} ${chalk.greenBright("/info")}  ${chalk.white("]
 console.log(`${chalk.white("[")} ${chalk.greenBright("/help")}  ${chalk.white("]")} ${chalk.yellow("Panduan commands penggunaan bot")}`);
 
 const token = "TOKEN_TELEGRAM_LU";
-const bot = new TelegramBot(token, { polling: true });
+const bot = new Telegraf(token);
+
 const botStartTime = Date.now();
 const stats = { value: 0 };
 
-bot.on("message", async (msg) => {
+bot.on("message", async (ctx) => {
+  const msg = ctx.message;
+  const botParams = ctx;
   if (!msg.text) return;
 
   const chatId = msg.chat.id;
@@ -139,7 +142,7 @@ bot.on("message", async (msg) => {
     const args = msg.text.trim().split(" ");
 
     if (args.length < 2) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Kirim command dengan format:\n/tt link_tiktok"
       );
@@ -154,7 +157,7 @@ bot.on("message", async (msg) => {
      const args = msg.text.trim().split(" ");
 
     if (args.length < 2) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Format Salah:\nContoh : /ytsearch windah"
     );
@@ -173,7 +176,7 @@ bot.on("message", async (msg) => {
     const query = msg.text.slice(7).trim();
      
     if (!query) {
-    return await bot.sendMessage(
+    return await bot.telegram.sendMessage(
       chatId,
       "❌ Gunakan format:\nContoh : <code>/movie Breaking bad</code>",
       { parse_mode: "HTML" }
@@ -211,7 +214,7 @@ bot.on("message", async (msg) => {
    const url = msg.text.slice(4).trim();
 
   if (!url) {
-    return await bot.sendMessage(
+    return await bot.telegram.sendMessage(
       chatId,
       "❌ Gunakan format:\n/mf link_mediafire"
     );
@@ -228,7 +231,7 @@ bot.on("message", async (msg) => {
   const query = text.slice(8).trim();
 
   if (!query) {
-   return await bot.sendMessage(
+   return await bot.telegram.sendMessage(
      chatId,
      "❌ Format Salah!\nContoh : /mf https://www.mediafire.com/file/"
    );
@@ -265,7 +268,7 @@ bot.on("message", async (msg) => {
       break;
 
     case "/tt":
-      await bot.sendMessage(
+      await bot.telegram.sendMessage(
        chatId,
         "❌ Kirim command dengan format:\n/tt link_tiktok"
         );
@@ -273,7 +276,9 @@ bot.on("message", async (msg) => {
      }
 });
 
-bot.on("callback_query", async (query) => {
+bot.on("callback_query", async (ctx) => {
+  const query = ctx.callbackQuery;
+  const botParams = ctx;
   stats.value++;
 
   await handleCallback(
@@ -284,6 +289,9 @@ bot.on("callback_query", async (query) => {
   );
 });
 
-bot.on("polling_error", (err) => {
-  console.log("Polling Error:", err.message);
+bot.catch((err, ctx) => {
+  console.log("Error:", err.message);
 });
+
+
+bot.launch().catch(err => console.log("Failed to launch:", err.message));

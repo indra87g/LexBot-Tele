@@ -74,7 +74,7 @@ export async function sendDeveloperInfo(bot, chatId) {
 </blockquote>
 `;
 
-    await bot.sendPhoto(
+    await bot.telegram.sendPhoto(
   chatId,
   github?.identity?.avatar ||
     "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
@@ -116,7 +116,7 @@ export async function sendDeveloperInfo(bot, chatId) {
   } catch (error) {
     console.log("DEV ERROR:", error.message);
 
-    await bot.sendMessage(
+    await bot.telegram.sendMessage(
       chatId,
       "❌ Gagal mengambil informasi developer."
     );

@@ -32,7 +32,7 @@ export async function geminiCommand(
 ) {
   try {
     if (!prompt) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Gunakan format:\n/gemini <pertanyaan>"
       );
@@ -44,7 +44,7 @@ export async function geminiCommand(
     const { data } = await axios.get(apiUrl);
 
     if (!data?.success) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Gagal mendapatkan response AI."
       );
@@ -65,7 +65,7 @@ export async function geminiCommand(
 </blockquote>`;
     }
 
-    await bot.sendMessage(chatId, caption, {
+    await bot.telegram.sendMessage(chatId, caption, {
       parse_mode: "HTML",
       reply_markup: {
         inline_keyboard: [
@@ -104,7 +104,7 @@ export async function geminiCommand(
       error.message
     );
 
-    await bot.sendMessage(
+    await bot.telegram.sendMessage(
       chatId,
       "❌ Gagal memproses AI."
     );

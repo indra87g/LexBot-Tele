@@ -8,7 +8,7 @@ export async function pinterestSearchCommand(
 ) {
   try {
     if (!query) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Gunakan format:\n<code>/pin keyword</code>",
         { parse_mode: "HTML" }
@@ -20,7 +20,7 @@ export async function pinterestSearchCommand(
     const { data } = await axios.get(apiUrl);
 
     if (!data?.success || !data?.result?.length) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Gambar tidak ditemukan."
       );
@@ -48,7 +48,7 @@ ${pin.url}
 <i>Powered by ${settings.botName}</i>
 </blockquote>`;
 
-    await bot.sendPhoto(
+    await bot.telegram.sendPhoto(
       chatId,
       pin.imageUrl,
       {
@@ -69,7 +69,7 @@ ${pin.url}
   } catch (error) {
     console.log("PIN SEARCH ERROR:", error.message);
 
-    await bot.sendMessage(
+    await bot.telegram.sendMessage(
       chatId,
       "❌ Terjadi error saat mencari gambar Pinterest."
     );

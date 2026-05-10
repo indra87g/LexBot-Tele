@@ -7,7 +7,7 @@ export async function tiktokStalk(
 ) {
   try {
     if (!username) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Gunakan format:\n/tiktokstalk username"
       );
@@ -19,7 +19,7 @@ export async function tiktokStalk(
     const { data } = await axios.get(apiUrl);
 
     if (!data?.success || !data?.result) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Akun TikTok tidak ditemukan."
       );
@@ -56,7 +56,7 @@ export async function tiktokStalk(
 • <strong>Response Time</strong> : ${data.responseTime}
 </blockquote>`;
 
-    await bot.sendPhoto(
+    await bot.telegram.sendPhoto(
       chatId,
       result.avatar?.thumb,
       {
@@ -86,7 +86,7 @@ export async function tiktokStalk(
       error.message
     );
 
-    await bot.sendMessage(
+    await bot.telegram.sendMessage(
       chatId,
       "❌ Gagal mengambil data TikTok."
     );

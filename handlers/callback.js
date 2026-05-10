@@ -33,7 +33,7 @@ export async function handleCallback(
         searchQuery
   );
 
-  return await bot.answerCallbackQuery(query.id);
+  return await bot.telegram.answerCbQuery(query.id);
 }
 
   if (data.startsWith("apksearch|")) {
@@ -45,7 +45,7 @@ export async function handleCallback(
     searchQuery
   );
 
-  return await bot.answerCallbackQuery(query.id);
+  return await bot.telegram.answerCbQuery(query.id);
 }
 
   if (data.startsWith("pinsearch|")) {
@@ -57,7 +57,7 @@ export async function handleCallback(
     searchQuery
   );
 
-  return await bot.answerCallbackQuery(query.id);
+  return await bot.telegram.answerCbQuery(query.id);
 }
 
    if (data.startsWith("ttsearch|")) {
@@ -69,7 +69,7 @@ export async function handleCallback(
     queryText
   );
 
-  return await bot.answerCallbackQuery(query.id);
+  return await bot.telegram.answerCbQuery(query.id);
 }
 
  if (data.startsWith("ttvid|")) {
@@ -77,18 +77,18 @@ export async function handleCallback(
   const cached = tiktokCache.get(cacheId);
 
   if (!cached) {
-    return await bot.sendMessage(
+    return await bot.telegram.sendMessage(
       chatId,
       "❌ Session expired, silakan cari ulang."
     );
   }
 
-  await bot.sendVideo(chatId, cached.videoUrl, {
+  await bot.telegram.sendVideo(chatId, cached.videoUrl, {
     caption: "🎥 Video berhasil diunduh",
     supports_streaming: true
   });
 
-  return await bot.answerCallbackQuery(query.id);
+  return await bot.telegram.answerCbQuery(query.id);
 }
 
 if (data.startsWith("ttmusic|")) {
@@ -96,17 +96,17 @@ if (data.startsWith("ttmusic|")) {
   const cached = tiktokCache.get(cacheId);
 
   if (!cached) {
-    return await bot.sendMessage(
+    return await bot.telegram.sendMessage(
       chatId,
       "❌ Session expired, silakan cari ulang."
     );
   }
 
-  await bot.sendAudio(chatId, cached.musicUrl, {
+  await bot.telegram.sendAudio(chatId, cached.musicUrl, {
     caption: "🎵 Audio berhasil diunduh"
   });
 
-  return await bot.answerCallbackQuery(query.id);
+  return await bot.telegram.answerCbQuery(query.id);
 }
 
   if (data.startsWith("ytvid|")) {
@@ -114,12 +114,12 @@ if (data.startsWith("ttmusic|")) {
     data.split("|")[1]
   );
 
-  await bot.sendVideo(chatId, videoUrl, {
+  await bot.telegram.sendVideo(chatId, videoUrl, {
     caption: "🎥 Video berhasil diunduh",
     supports_streaming: true
   });
 
-  return await bot.answerCallbackQuery(query.id);
+  return await bot.telegram.answerCbQuery(query.id);
 }
 
 if (data.startsWith("ytaudio|")) {
@@ -127,11 +127,11 @@ if (data.startsWith("ytaudio|")) {
     data.split("|")[1]
   );
 
-  await bot.sendAudio(chatId, audioUrl, {
+  await bot.telegram.sendAudio(chatId, audioUrl, {
     caption: "🎵 Audio berhasil diunduh"
   });
 
-  return await bot.answerCallbackQuery(query.id);
+  return await bot.telegram.answerCbQuery(query.id);
 }
 
   switch (data) {
@@ -174,11 +174,11 @@ if (data.startsWith("ytaudio|")) {
      break;
 
     default:
-      await bot.sendMessage(
+      await bot.telegram.sendMessage(
         chatId,
         "❌ Menu tidak dikenali."
       );
   }
 
-  await bot.answerCallbackQuery(query.id);
+  await bot.telegram.answerCbQuery(query.id);
 }

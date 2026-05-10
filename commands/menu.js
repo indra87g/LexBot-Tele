@@ -37,7 +37,7 @@ Ketik <code>/info</code> untuk melihat informasi bot
 <b>Silahkan Pilih menu kategori dibawah ini</b>
 </blockquote>`;
 
-  await bot.sendPhoto(chatId, settings.thumbnail, {
+  await bot.telegram.sendPhoto(chatId, settings.thumbnail, {
     caption,
     parse_mode: "HTML",
     reply_markup: {
@@ -78,7 +78,7 @@ Temukan berbagai informasi dengan cepat melalui fitur pencarian yang tersedia.
 <i>Powered by ${settings.botName}</i>
 </blockquote>`;
 
-  await bot.sendMessage(chatId, text, {
+  await bot.telegram.sendMessage(chatId, text, {
     parse_mode: "HTML",
     reply_markup: {
       inline_keyboard: [
@@ -111,7 +111,7 @@ Download video / foto dari berbagai platform dengan cepat dan mudah.
 <i>Powered by ${settings.botName}</i>
 </blockquote>`;
 
-  await bot.sendMessage(chatId, text, {
+  await bot.telegram.sendMessage(chatId, text, {
     parse_mode: "HTML",
     reply_markup: {
       inline_keyboard: [
@@ -127,7 +127,7 @@ Download video / foto dari berbagai platform dengan cepat dan mudah.
 }
 
 export async function sendStalkerMenu(bot, chatId) {
-  await bot.sendMessage(
+  await bot.telegram.sendMessage(
     chatId,
     `<blockquote>
 <strong>🕵️ MENU STALKER</strong>
@@ -157,7 +157,7 @@ Akses fitur pencarian data akun dari berbagai platform.
 }
 
 export async function sendAiMenu(bot, chatId) {
-  await bot.sendMessage(
+  await bot.telegram.sendMessage(
     chatId,
     `<blockquote>
 <strong>🧠 MENU AI</strong>
@@ -187,7 +187,7 @@ chat, coding, penjelasan, dan bantuan ide.
 }
 
 export async function sendToolsMenu(bot, chatId) {
-  await bot.sendMessage(
+  await bot.telegram.sendMessage(
     chatId,
     `<blockquote>
 <strong>🛠 MENU TOOLS</strong>

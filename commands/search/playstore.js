@@ -8,7 +8,7 @@ export async function playStoreSearchCommand(
 ) {
   try {
     if (!query) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Gunakan format:\n<code>/apk nama_aplikasi</code>",
         { parse_mode: "HTML" }
@@ -23,7 +23,7 @@ export async function playStoreSearchCommand(
     });
 
     if (!apps.length) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ APK tidak ditemukan."
       );
@@ -47,7 +47,7 @@ ${app.url}
 <i>Powered by ${settings.botName}</i>
 </blockquote>`;
 
-    await bot.sendPhoto(chatId, app.icon, {
+    await bot.telegram.sendPhoto(chatId, app.icon, {
       caption,
       parse_mode: "HTML",
       reply_markup: {
@@ -64,7 +64,7 @@ ${app.url}
   } catch (error) {
     console.log("APK SEARCH ERROR:", error.message);
 
-    await bot.sendMessage(
+    await bot.telegram.sendMessage(
       chatId,
       "❌ Terjadi error saat mencari aplikasi."
     );
