@@ -58,14 +58,36 @@ Ketik <code>/info</code> untuk melihat informasi bot
   });
 }
 
-export async function sendSearchMenu(
-  bot,
-  chatId
-) {
-  const text = `<blockquote>
-<b>🔎 SEARCH MENU</b>
+/**
+ * Generic function to create and send a menu message
+ * @param {object} bot - The bot instance
+ * @param {number|string} chatId - The chat ID to send the message to
+ * @param {string} title - The title of the menu
+ * @param {string} description - The description/content of the menu
+ * @param {array} [buttons] - Optional custom buttons. Defaults to a single "Back" button.
+ */
+async function createMenu(bot, chatId, title, description, buttons = []) {
+  const keyboard = buttons.length > 0 ? buttons : [
+    [{ text: "⬅️ Back", callback_data: "menu" }]
+  ];
 
-Temukan berbagai informasi dengan cepat melalui fitur pencarian yang tersedia.
+  const text = `<blockquote>
+${title}
+
+${description}
+</blockquote>`;
+
+  await bot.sendMessage(chatId, text, {
+    parse_mode: "HTML",
+    reply_markup: {
+      inline_keyboard: keyboard
+    }
+  });
+}
+
+export async function sendSearchMenu(bot, chatId) {
+  const title = `<b>🔎 SEARCH MENU</b>`;
+  const description = `Temukan berbagai informasi dengan cepat melalui fitur pencarian yang tersedia.
 
 ┌<b> ALL SEARCH MENU</b>
 │ /ytsearch    • Search YouTube Video
@@ -75,32 +97,14 @@ Temukan berbagai informasi dengan cepat melalui fitur pencarian yang tersedia.
 │ /ttsearch    • Cari vidio di tiktok
 └——————————————>
 
-<i>Powered by ${settings.botName}</i>
-</blockquote>`;
+<i>Powered by ${settings.botName}</i>`;
 
-  await bot.sendMessage(chatId, text, {
-    parse_mode: "HTML",
-    reply_markup: {
-      inline_keyboard: [
-        [
-          {
-            text: "⬅️ Back",
-            callback_data: "menu"
-          }
-        ]
-      ]
-    }
-  });
+  await createMenu(bot, chatId, title, description);
 }
 
-export async function sendDownloaderMenu(
-  bot,
-  chatId
-) {
-  const text = `<blockquote>
-<b>📥 DOWNLOADER MENU</b>
-
-Download video / foto dari berbagai platform dengan cepat dan mudah.
+export async function sendDownloaderMenu(bot, chatId) {
+  const title = `<b>📥 DOWNLOADER MENU</b>`;
+  const description = `Download video / foto dari berbagai platform dengan cepat dan mudah.
 
 ┌<b> ALL DOWNLOADER MENU</b>
 │ /tt   • TikTok Downloader
@@ -108,104 +112,42 @@ Download video / foto dari berbagai platform dengan cepat dan mudah.
 │ /ytplay • Play yt vidio (support download mp4/mp3)
 └——————————————>
 
-<i>Powered by ${settings.botName}</i>
-</blockquote>`;
+<i>Powered by ${settings.botName}</i>`;
 
-  await bot.sendMessage(chatId, text, {
-    parse_mode: "HTML",
-    reply_markup: {
-      inline_keyboard: [
-        [
-          {
-            text: "⬅️ Back",
-            callback_data: "menu"
-          }
-        ]
-      ]
-    }
-  });
+  await createMenu(bot, chatId, title, description);
 }
 
 export async function sendStalkerMenu(bot, chatId) {
-  await bot.sendMessage(
-    chatId,
-    `<blockquote>
-<strong>🕵️ MENU STALKER</strong>
-
-Akses fitur pencarian data akun dari berbagai platform.
+  const title = `<strong>🕵️ MENU STALKER</strong>`;
+  const description = `Akses fitur pencarian data akun dari berbagai platform.
 
 ┌<b> ALL STALKER MENU</b>
 │ /ttstalk   • TikTok Stalker
 │ /ghstalk   • Github Stalker
 └——————————————————————————>
 
-<i>Powered by ${settings.developer}</i>
-</blockquote>`,
-    {
-      parse_mode: "HTML",
-      reply_markup: {
-        inline_keyboard: [
-          [
-            {
-              text: "⬅️ Back",
-              callback_data: "menu"
-            }
-          ]
-        ]
-      }
-    });
+<i>Powered by ${settings.developer}</i>`;
+
+  await createMenu(bot, chatId, title, description);
 }
 
 export async function sendAiMenu(bot, chatId) {
-  await bot.sendMessage(
-    chatId,
-    `<blockquote>
-<strong>🧠 MENU AI</strong>
-
-Pusat fitur Artificial Intelligence untuk
+  const title = `<strong>🧠 MENU AI</strong>`;
+  const description = `Pusat fitur Artificial Intelligence untuk
 chat, coding, penjelasan, dan bantuan ide.
 
 ┌<b> ALL AI MENU</b>
 │ /gemini   •   Gemini 2-5 Flash
 │ /claude   •   Claude 3 Haikku
 └——————————————————————————>
+`;
 
-</blockquote>`,
-    {
-      parse_mode: "HTML",
-      reply_markup: {
-        inline_keyboard: [
-          [
-            {
-              text: "⬅️ Back",
-              callback_data: "menu"
-            }
-          ]
-        ]
-      }
-    });
+  await createMenu(bot, chatId, title, description);
 }
 
 export async function sendToolsMenu(bot, chatId) {
-  await bot.sendMessage(
-    chatId,
-    `<blockquote>
-<strong>🛠 MENU TOOLS</strong>
+  const title = `<strong>🛠 MENU TOOLS</strong>`;
+  const description = `Fitur masih dalam tahap pengembangan.`;
 
-Fitur masih dalam tahap pengembangan.
-
-</blockquote>`,
-    {
-      parse_mode: "HTML",
-      reply_markup: {
-        inline_keyboard: [
-          [
-            {
-              text: "⬅️ Back",
-              callback_data: "menu"
-            }
-          ]
-        ]
-      }
-    });
+  await createMenu(bot, chatId, title, description);
 }
