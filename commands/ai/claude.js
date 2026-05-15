@@ -32,7 +32,7 @@ export async function claudeCommand(
 ) {
   try {
     if (!prompt) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Gunakan format:\n/claude <pertanyaan>"
       );
@@ -43,7 +43,7 @@ export async function claudeCommand(
     const { data } = await axios.get(apiUrl);
 
     if (!data?.success) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Gagal mendapatkan response Claude AI."
       );
@@ -68,7 +68,7 @@ export async function claudeCommand(
 </blockquote>`;
     }
 
-    await bot.sendMessage(chatId, caption, {
+    await bot.telegram.sendMessage(chatId, caption, {
       parse_mode: "HTML",
       reply_markup: {
         inline_keyboard: [
@@ -107,7 +107,7 @@ export async function claudeCommand(
       error.message
     );
 
-    await bot.sendMessage(
+    await bot.telegram.sendMessage(
       chatId,
       "❌ Gagal memproses Claude AI."
     );

@@ -7,7 +7,7 @@ export async function tiktokDownloader(bot, chatId, url) {
     const { data } = await axios.get(apiUrl);
 
     if (!data?.success) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Gagal mengambil video TikTok."
       );
@@ -42,7 +42,7 @@ export async function tiktokDownloader(bot, chatId, url) {
 </blockquote>`;
 
     if (videoUrl) {
-      await bot.sendVideo(chatId, videoUrl, {
+      await bot.telegram.sendVideo(chatId, videoUrl, {
         caption,
         parse_mode: "HTML",
         supports_streaming: true
@@ -50,14 +50,14 @@ export async function tiktokDownloader(bot, chatId, url) {
     }
 
     if (audioUrl) {
-      await bot.sendAudio(chatId, audioUrl, {
+      await bot.telegram.sendAudio(chatId, audioUrl, {
         caption: "🎵 Audio extracted from TikTok",
       });
     }
   } catch (error) {
     console.log("TT ERROR:", error.message);
 
-    await bot.sendMessage(
+    await bot.telegram.sendMessage(
       chatId,
       "❌ Terjadi error saat download TikTok."
     );

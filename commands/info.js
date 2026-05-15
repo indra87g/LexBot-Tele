@@ -24,7 +24,7 @@ export async function sendInfo(bot, chatId, user, totalCommands, botStartTime) {
 ⏱ Uptime: \`${uptime}s\`
 `;
 
-  await bot.sendMessage(chatId, text, {
+  await bot.telegram.sendMessage(chatId, text, {
     parse_mode: "Markdown"
   });
 }

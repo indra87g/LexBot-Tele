@@ -7,7 +7,7 @@ export async function githubStalk(
 ) {
   try {
     if (!username) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Gunakan format:\n/ghstalk username"
       );
@@ -19,7 +19,7 @@ export async function githubStalk(
     const { data } = await axios.get(apiUrl);
 
     if (!data?.success || !data?.result) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Akun GitHub tidak ditemukan."
       );
@@ -61,7 +61,7 @@ export async function githubStalk(
 • <strong>Response Time</strong> : ${data.responseTime}
 </blockquote>`;
 
-    await bot.sendPhoto(
+    await bot.telegram.sendPhoto(
       chatId,
       account.avatar,
       {
@@ -91,7 +91,7 @@ export async function githubStalk(
       error.message
     );
 
-    await bot.sendMessage(
+    await bot.telegram.sendMessage(
       chatId,
       "❌ Gagal mengambil data GitHub."
     );

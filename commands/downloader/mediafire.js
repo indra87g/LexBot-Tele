@@ -2,7 +2,7 @@ import axios from "axios";
 
 export async function mediafireDownloader(bot, chatId, url) {
   try {
-    await bot.sendChatAction(chatId, "typing");
+    await bot.telegram.sendChatAction(chatId, "typing");
 
     const apiUrl = `https://rynekoo-api.hf.space/downloader/mediafire?url=${encodeURIComponent(url)}`;
 
@@ -11,7 +11,7 @@ export async function mediafireDownloader(bot, chatId, url) {
     });
 
     if (!data?.success || !data?.result) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ File MediaFire tidak ditemukan atau link tidak valid.",
         {
@@ -37,12 +37,12 @@ ${file.filename}
 File berhasil ditemukan dan sedang dikirim...
 </blockquote>`;
 
-    await bot.sendMessage(chatId, caption, {
+    await bot.telegram.sendMessage(chatId, caption, {
       parse_mode: "HTML"
     });
 
     // kirim file
-    await bot.sendDocument(chatId, file.download_url, {
+    await bot.telegram.sendDocument(chatId, file.download_url, {
       caption: `<strong>✅ Download selesai</strong>\n<code>${file.filename}</code>`,
       parse_mode: "HTML"
     });
@@ -50,7 +50,7 @@ File berhasil ditemukan dan sedang dikirim...
   } catch (error) {
     console.log("MEDIAFIRE ERROR:", error.message);
 
-    await bot.sendMessage(
+    await bot.telegram.sendMessage(
       chatId,
       "❌ Terjadi error saat mengambil file MediaFire.",
       {

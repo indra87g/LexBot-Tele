@@ -8,7 +8,7 @@ export async function movieSearchCommand(
 ) {
   try {
     if (!query) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Masukkan judul film.\nContoh: <code>.movie Interstellar</code>",
         { parse_mode: "HTML" }
@@ -27,7 +27,7 @@ export async function movieSearchCommand(
     );
 
     if (data.Response === "False") {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Film tidak ditemukan."
       );
@@ -52,19 +52,19 @@ ${`https://www.imdb.com/title/${data.imdbID}/`}
 </blockquote>`;
 
     if (data.Poster && data.Poster !== "N/A") {
-      await bot.sendPhoto(chatId, data.Poster, {
+      await bot.telegram.sendPhoto(chatId, data.Poster, {
         caption,
         parse_mode: "HTML"
       });
     } else {
-      await bot.sendMessage(chatId, caption, {
+      await bot.telegram.sendMessage(chatId, caption, {
         parse_mode: "HTML"
       });
     }
   } catch (error) {
     console.log("MOVIE ERROR:", error.message);
 
-    await bot.sendMessage(
+    await bot.telegram.sendMessage(
       chatId,
       "❌ Terjadi error saat mencari movie."
     );

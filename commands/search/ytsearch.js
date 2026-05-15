@@ -58,7 +58,7 @@ export async function ytSearchCommand(
     const results = await searchYoutube(query);
 
     if (!results.length) {
-      return await bot.sendMessage(
+      return await bot.telegram.sendMessage(
         chatId,
         "❌ Video tidak ditemukan."
       );
@@ -76,7 +76,7 @@ export async function ytSearchCommand(
 <b>🔗 URL Video</b>: ${random.url}
 </blockquote>`;
 
-    await bot.sendPhoto(chatId, random.thumbnail, {
+    await bot.telegram.sendPhoto(chatId, random.thumbnail, {
       caption,
       parse_mode: "HTML",
       reply_markup: {
@@ -93,7 +93,7 @@ export async function ytSearchCommand(
   } catch (error) {
     console.log("YT SEARCH ERROR:", error.message);
 
-    await bot.sendMessage(
+    await bot.telegram.sendMessage(
       chatId,
       "❌ Terjadi error saat mencari video."
     );
