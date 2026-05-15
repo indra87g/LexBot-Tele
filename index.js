@@ -1,4 +1,4 @@
-import { Telegraf } from "telegraf";
+import { Telegraf } from "telegraf-hardened";
 import chalk from "chalk";
 import { sendMenu } from "./commands/menu.js";
 import { sendInfo } from "./commands/info.js";
@@ -32,7 +32,7 @@ console.log(`${chalk.white("[")} ${chalk.greenBright("/start")} ${chalk.white("]
 console.log(`${chalk.white("[")} ${chalk.greenBright("/info")}  ${chalk.white("]")} ${chalk.yellow("Command untuk melihat informasi bot")}`);
 console.log(`${chalk.white("[")} ${chalk.greenBright("/help")}  ${chalk.white("]")} ${chalk.yellow("Panduan commands penggunaan bot")}`);
 
-const token = "TOKEN_TELEGRAM_LU";
+const token = "1234567890:ABCDEFG_TOKEN_HERE";
 const bot = new Telegraf(token);
 
 const botStartTime = Date.now();

@@ -1,9 +1,0 @@
-
-6:43:03 AM [ SUCCESS ] Bot berhasil dijalankan
-
-[ /start ] Command untuk menjalankan bot
-[ /info  ] Command untuk melihat informasi bot
-[ /help  ] Panduan commands penggunaan bot
-(node:312380) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
-(Use `node --trace-deprecation ...` to show where the warning was created)
-Failed to launch: 404: Not Found
